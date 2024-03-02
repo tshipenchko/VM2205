@@ -1,4 +1,4 @@
-from utils import VARIABLES, dot_product, print_equations
+from utils import dot_product, print_equations, print_relative_error, print_values
 
 
 def main():
@@ -11,14 +11,10 @@ def main():
     vector_b = [25, 20, 30]
     x0 = [0] * len(vector_b)
 
-    print("System of Equations:")
-    for equation in print_equations(matrix_a, vector_b):
-        print(equation)
-
-    solution = gauss_seidel_iteration(matrix_a, vector_b, x0)
-    print("\nSolution using Gauss-Seidel iteration method:")
-    for i, val in enumerate(solution):
-        print(f"{VARIABLES[i]} = {val}")
+    print_equations(matrix_a, vector_b)
+    solution = gauss_seidel_iteration(matrix_a, vector_b, x0, max_iter=10)
+    print_values(solution, "Solution using Gauss-Seidel iteration method")
+    print_relative_error(solution, matrix_a, vector_b)
 
 
 def gauss_seidel_iteration(matrix_a, vector_b, x0, tol=1e-6, max_iter=1000):
